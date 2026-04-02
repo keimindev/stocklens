@@ -1,11 +1,19 @@
+"use client"
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Moon, Globe } from "lucide-react";
+import { Search, Globe } from "lucide-react";
 import { StockStatCard } from "./HeaderCard";
-
+import { MainChart } from "./MainChart";
 
 export default function StockDashboard() {
+  const stocks = ["AAPL", "TSLA", "NVDA", "AMZN"];
+  const timeframes = ["24h", "7d", "30d", "1y"];
+
+  const [selectedTimeframe, setSelectedTimeframe] = useState("1y");
+  const [selectedStock, setSelectedStock] = useState("AAPL");
   return (
     <div className="min-h-screen bg-slate-50 p-6 text-slate-900">
       {/* --- HEADER --- */}
@@ -29,30 +37,12 @@ export default function StockDashboard() {
 
       {/* --- MAIN GRID SYSTEM --- */}
       <div className="grid grid-cols-12 gap-4">
-        <StockStatCard symbol="AAPL" />
-        <StockStatCard symbol="TSLA" />
-        <StockStatCard symbol="NVDA" />
-        <StockStatCard symbol="AMZN" />
+        {stocks.map((stock) => {
+          return <StockStatCard key={stock} symbol={stock} />;
+        })}
 
-
-        <Card className="col-span-12 lg:col-span-8">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-lg">Price History</CardTitle>
-            <div className="flex gap-2">
-              {["24h", "7d", "30d", "1y"].map((t) => (
-                <Button key={t} variant="outline" size="sm">
-                  {t}
-                </Button>
-              ))}
-            </div>
-          </CardHeader>
-          <CardContent className="h-[300px] flex items-center justify-center bg-slate-100/50 rounded-md m-4">
-            {/* 여기에 Recharts가 들어갈 자리입니다 */}
-            <p className="text-slate-400 font-medium">
-              Chart Visualization Area
-            </p>
-          </CardContent>
-        </Card>
+        {/* 2. Main Chart */}
+        <MainChart symbol={selectedStock} />
 
         {/* 3. Side Widgets */}
         <div className="col-span-12 lg:col-span-4 flex flex-col gap-4">

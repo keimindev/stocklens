@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getStockQuote, StockQuote } from "@/lib/data";
+import { getStockQuote, StockQuote } from "@/lib/Stockdata";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function StockStatCard({ symbol }: { symbol: string }) {
