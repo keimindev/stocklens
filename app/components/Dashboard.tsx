@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Moon, Globe } from "lucide-react";
+import { StockStatCard } from "./HeaderCard";
+
 
 export default function StockDashboard() {
   return (
@@ -25,50 +27,14 @@ export default function StockDashboard() {
         </div>
       </header>
 
-      {/* --- MAIN GRID SYSTEM (12 Columns) --- */}
+      {/* --- MAIN GRID SYSTEM --- */}
       <div className="grid grid-cols-12 gap-4">
-        {/* 1. Top Stats Cards (각 3컬럼씩 x 4개 = 12) */}
-        <Card className="col-span-12 md:col-span-3">
-          <CardContent className="pt-6">
-            <p className="text-sm font-medium text-slate-500">Apple (AAPL)</p>
-            <div className="flex items-end justify-between">
-              <h3 className="text-2xl font-bold">$175.24</h3>
-              <span className="text-sm font-bold text-green-600">▲ +1.2%</span>
-            </div>
-          </CardContent>
-        </Card>
+        <StockStatCard symbol="AAPL" />
+        <StockStatCard symbol="TSLA" />
+        <StockStatCard symbol="NVDA" />
+        <StockStatCard symbol="AMZN" />
 
-        <Card className="col-span-12 md:col-span-3">
-          <CardContent className="pt-6">
-            <p className="text-sm font-medium text-slate-500">Tesla (TSLA)</p>
-            <div className="flex items-end justify-between">
-              <h3 className="text-2xl font-bold">$202.12</h3>
-              <span className="text-sm font-bold text-red-600">▼ -0.8%</span>
-            </div>
-          </CardContent>
-        </Card>
 
-        <Card className="col-span-12 md:col-span-3">
-          <CardContent className="pt-6">
-            <p className="text-sm font-medium text-slate-500">Nvidia (NVDA)</p>
-            <div className="flex items-end justify-between">
-              <h3 className="text-2xl font-bold">$875.30</h3>
-              <span className="text-sm font-bold text-green-600">▲ +4.5%</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="col-span-12 md:col-span-3">
-          <CardContent className="pt-6">
-            <p className="text-sm font-medium text-slate-500">Market Cap</p>
-            <div className="flex items-end justify-between">
-              <h3 className="text-2xl font-bold">$31.4T</h3>
-              <span className="text-sm font-bold text-slate-600">+0.2%</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 2. Main Chart Section (8컬럼) */}
         <Card className="col-span-12 lg:col-span-8">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-lg">Price History</CardTitle>
@@ -88,7 +54,7 @@ export default function StockDashboard() {
           </CardContent>
         </Card>
 
-        {/* 3. Side Widgets (4컬럼) */}
+        {/* 3. Side Widgets */}
         <div className="col-span-12 lg:col-span-4 flex flex-col gap-4">
           <Card className="flex-1">
             <CardHeader>
