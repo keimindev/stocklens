@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Search, Globe } from "lucide-react";
 import { StockStatCard } from "./HeaderCard";
 import { MainChart } from "./MainChart";
+import { RecommendationChart } from "./RecommendationChart";
 
 export default function StockDashboard() {
   const stocks = ["AAPL", "TSLA", "NVDA", "AMZN"];
@@ -42,7 +43,8 @@ export default function StockDashboard() {
         })}
 
         {/* 2. Main Chart */}
-        <MainChart symbol={selectedStock} />
+        {/* <MainChart symbol={selectedStock} /> */}
+        <RecommendationChart symbol={selectedStock} />
 
         {/* 3. Side Widgets */}
         <div className="col-span-12 lg:col-span-4 flex flex-col gap-4">
