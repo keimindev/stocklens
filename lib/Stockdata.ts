@@ -1,5 +1,12 @@
-const API_KEY = process.env.NEXT_PUBLIC_FINNHUB_API_KEY;
-const BASE_URL = 'https://finnhub.io/api/v1';
+import axios from 'axios';
+
+const finnhubClient = axios.create({
+  baseURL: 'https://finnhub.io/api/v1',
+  params: {
+    token: process.env.NEXT_PUBLIC_FINNHUB_API_KEY, // 환경변수에서 키 관리
+  },
+  timeout: 5000, // 5초 타임아웃 설정
+});
 
 export interface StockQuote {
   c: number; // Current price
@@ -19,29 +26,19 @@ export interface ChartData{
 
 
 export const getStockQuote = async (symbol: string): Promise<StockQuote> => {
-  const response = await fetch(
-    `${BASE_URL}/quote?symbol=${symbol}&token=${API_KEY}`
-  );
-  if (!response.ok) throw new Error('Network response was not ok');
-  return response.json();
-};
-
-export const getStockCandles = async (symbol: string, resolution: string = 'D'): Promise<ChartData[]> => {
-  // 현재 시간과 1년 전 시간을 Unix Timestamp로 계산
-  const to = Math.floor(Date.now() / 1000);
-  const from = to - (60 * 60 * 24 * 365); // 1년 전
-
-  const response = await fetch(
-    `${BASE_URL}/stock/candle?symbol=${symbol}&resolution=${resolution}&from=${from}&to=${to}&token=${API_KEY}`
-  );
-
-  const data = await response.json();
-
-  if (data.s !== 'ok') throw new Error('Failed to fetch candle data');
-
-  // Finnhub의 [c: 가격배열, t: 시간배열] 구조를 Recharts가 읽을 수 있는 [{date, price}] 배열로 변환
-  return data.t.map((time: number, index: number) => ({
-    date: new Date(time * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    price: data.c[index],
-  }));
+  try{
+    const response = await finnhubClient.get('/quote', {
+      params:{
+        symbol : symbol.toUpperCase(),
+      }
+  });
+  return response.data;;
+ } catch(error){
+  if(axios.isAxiosError(error)){
+      console.error('API Error:', error.response?.data || error.message);
+      throw new Error(`Failed to fetch stock quote: ${error.message}`);
+  } else {
+    throw new Error('An unexpected error occurred');
+  }
+ }
 };

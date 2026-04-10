@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getStockCandles, ChartData } from "@/lib/Stockdata";
+import { ChartData } from "@/lib/Stockdata";
 import { Button } from "@/components/ui/button";
 import {
   ResponsiveContainer,
@@ -18,7 +18,7 @@ export function MainChart({ symbol }: { symbol: string }) {
   const [data, setData] = useState<ChartData[]>([]);
 
   useEffect(() => {
-    getStockCandles(symbol).then(setData).catch(console.error);
+
   }, [symbol]);
 
   return (
