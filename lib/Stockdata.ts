@@ -29,6 +29,18 @@ export interface Recommendation {
   symbol: string;
 }
 
+export interface NewsItem {
+  category: string;
+  datetime: number; 
+  headline: string;
+  id: number;
+  image: string;
+  related: string; 
+  source: string;
+  summary: string;
+  url: string;
+}
+
 export interface ChartData{
     date: string;
     price: number;
@@ -93,4 +105,15 @@ export const getRecommendations = async (symbol: string): Promise<Recommendation
     return []; // 에러 발생 시 빈 배열 반환으로 안정성 확보
   }
 };
+
+export const getMarketNews = async () =>{
+  try {
+    const response = await finnhubClient.get('/news?category=general');
+    const newsItmes = response.data.splice(0,10)
+    return newsItmes
+  }catch (error) {
+    console.error("Failed to fetch market news:", error);
+    return [];
+  }
+}
 

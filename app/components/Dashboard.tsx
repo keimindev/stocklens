@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Globe } from "lucide-react";
 import { StockStatCard } from "./HeaderCard";
-import { MainChart } from "./MainChart";
 import { RecommendationChart } from "./RecommendationChart";
+import { MarketNews } from "./MarketNews";
 
 export default function StockDashboard() {
   const stocks = ["AAPL", "TSLA", "NVDA", "AMZN"];
@@ -77,16 +77,7 @@ export default function StockDashboard() {
         </div>
 
         {/* 4. Bottom Table (12컬럼) */}
-        <Card className="col-span-12">
-          <CardHeader>
-            <CardTitle className="text-lg">Market Overview</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="w-full h-32 border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center text-slate-400">
-              Stock Table Placeholder (Use shadcn Table component here)
-            </div>
-          </CardContent>
-        </Card>
+        <MarketNews />
       </div>
     </div>
   );
