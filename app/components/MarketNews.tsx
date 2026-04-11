@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getMarketNews} from "@/lib/Stockdata";
+import { getMarketNews, NewsItem} from "@/lib/Stockdata";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function MarketNews() {
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setloading] = useState(true);
   const [index, setIndex] = useState(0);
 
@@ -17,7 +17,7 @@ export function MarketNews() {
     });
   }, []);
 
-  const newsRolling = (news) => {
+  const newsRolling = (news: NewsItem[]) => {
     if (news.length === 0) return; // 뉴스 데이터가 없으면 타이머 설정하지 않음
 
     const timer = setInterval(() => {
